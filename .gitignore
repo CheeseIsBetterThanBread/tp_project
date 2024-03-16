@@ -1,1 +1,4 @@
-*.out
+build
+bin
+lib
+.idea/
