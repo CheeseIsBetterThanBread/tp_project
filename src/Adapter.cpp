@@ -52,15 +52,16 @@ void Adapter::add_ship() {
       continue;
     }
     --ships_left[size];
+    std::string output;
     try {
-      interactor_->process_request({first, second, third, fourth});
+      output = interactor_->process_request({first, second, third, fourth});
     } catch (...) {
       std::cout << "Your ship intersects other ships\n";
       continue;
     }
+    std::cout << output;
     correct = true;
   }
-  std::cout << "Ship placed\n";
 }
 
 void Adapter::fire_at() {

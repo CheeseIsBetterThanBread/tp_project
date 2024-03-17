@@ -10,7 +10,7 @@ class Interactor : public Observer {
  public:
   Interactor();
   void handle_event() override;
-  std::string process_request(std::initializer_list<int>); // need strong guarantee todo
+  std::string process_request(std::initializer_list<int>);
 
  private:
   RemoteServer* connection_;
