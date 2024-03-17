@@ -87,7 +87,7 @@ void Adapter::fire_at() {
     try {
       output = interactor_->process_request({first, second});
     } catch (...) {
-      std::cout << "You've alredy tried there\n";
+      std::cout << "You've already tried there\n";
       continue;
     }
     correct = true;

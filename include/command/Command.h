@@ -1,7 +1,6 @@
 #pragma once
 
-#include "connection/RemoteServer.h"
-#include "connection/Battlefield.h"
+#include "../Battlefield.h"
 #include <initializer_list>
 #include <string>
 #include <utility>
