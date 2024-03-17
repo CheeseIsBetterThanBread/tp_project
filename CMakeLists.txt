@@ -11,6 +11,6 @@ include_directories(include)
 add_executable(exe main.cpp)
 
 add_subdirectory(src)
-target_link_libraries(exe commands
+target_link_libraries(exe command
                           connection
                           internal)
