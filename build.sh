@@ -3,5 +3,11 @@
 mkdir -p build
 cd build || exit
 
-cmake ..
-cmake --build .
+if [[ ($@ == *'--test'*) ]]
+then
+  cmake -DCMAKE_BUILD_TYPE=Debug ..
+  cmake --build . --target tests
+else
+  cmake ..
+  cmake --build .
+fi

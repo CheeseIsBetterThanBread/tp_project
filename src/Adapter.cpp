@@ -52,9 +52,9 @@ void Adapter::add_ship() {
       continue;
     }
     --ships_left[size];
-    std::string output;
+    std::string output = "plug";
     try {
-      output = interactor_->process_request({first, second, third, fourth});
+      //output = interactor_->process_request({first, second, third, fourth});
     } catch (...) {
       std::cout << "Your ship intersects other ships\n";
       continue;
@@ -84,9 +84,9 @@ void Adapter::fire_at() {
       std::cout << "You can't shoot squares outside playing field\n";
       continue;
     }
-    std::string output;
+    std::string output = "plug";
     try {
-      output = interactor_->process_request({first, second});
+      // output = interactor_->process_request({first, second});
     } catch (...) {
       std::cout << "You've already tried there\n";
       continue;
