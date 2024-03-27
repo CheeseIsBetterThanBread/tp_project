@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../include/connection/RemoteServer.h"
+#include "RemoteServer.h"
 
 RemoteServer::RemoteServer() = default;
 

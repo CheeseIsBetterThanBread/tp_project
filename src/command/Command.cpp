@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../include/command/Command.h"
+#include "Command.h"
 
 Command::Command(Battlefield* local_copy) : local_copy_(local_copy) {}
 

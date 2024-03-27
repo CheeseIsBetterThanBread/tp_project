@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../include/command/FireAtCommand.h"
+#include "FireAtCommand.h"
 
 std::string FireAtCommand::execute(const query& request) {
   int& flag = local_copy_->enemies_field_[request.aim.first][request.aim.second];

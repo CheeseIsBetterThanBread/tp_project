@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../include/connection/Interactor.h"
+#include "Interactor.h"
 
 Interactor::Interactor() : command_(nullptr) {}
 

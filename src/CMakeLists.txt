@@ -5,3 +5,5 @@ set(SOURCES Adapter.cpp Battlefield.cpp)
 add_subdirectory(connection)
 add_subdirectory(command)
 add_library(internal STATIC ${SOURCES})
+
+target_include_directories(internal PRIVATE ${CMAKE_SOURCE_DIR}/include)

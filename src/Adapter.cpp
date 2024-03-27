@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../include/Adapter.h"
+#include "Adapter.h"
 #include <iostream>
 
 Adapter::Adapter() : interactor_(nullptr) {

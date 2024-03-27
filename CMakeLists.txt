@@ -7,7 +7,6 @@ set(CMAKE_EXECUTABLE_SUFFIX ".out")
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
-include_directories(include)
 add_executable(exe main.cpp)
 
 add_subdirectory(src)

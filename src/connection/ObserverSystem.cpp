@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../include/connection/ObserverSystem.h"
+#include "ObserverSystem.h"
 
 Observable::Observable() : observer_(nullptr) {};
 

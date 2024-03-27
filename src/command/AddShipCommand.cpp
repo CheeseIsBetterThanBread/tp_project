@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../include/command/AddShipCommand.h"
+#include "AddShipCommand.h"
 
 std::string AddShipCommand::execute(const query& request) {
   int left = std::max(0, std::min(request.front.first, request.back.first) - 1);

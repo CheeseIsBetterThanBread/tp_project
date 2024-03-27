@@ -3,3 +3,5 @@ project(Connection)
 
 set(CONNECTION Interactor.cpp ObserverSystem.cpp RemoteServer.cpp)
 add_library(connection STATIC ${CONNECTION})
+
+target_include_directories(connection PRIVATE ${CMAKE_SOURCE_DIR}/include/connection)

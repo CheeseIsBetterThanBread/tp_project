@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../include/Battlefield.h"
+#include "Battlefield.h"
 #include <string>
 #include <vector>
 
