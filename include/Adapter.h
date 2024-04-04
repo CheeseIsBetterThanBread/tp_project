@@ -6,11 +6,17 @@
 class Adapter {
  public:
   Adapter();
-  void add_ship();
-  void fire_at();
+  virtual void add_ship() = 0;
+  virtual void fire_at() = 0;
   void set_interactor(Interactor* interactor);
 
- private:
+ protected:
   Interactor* interactor_;
   std::vector<int> ships_left;
+};
+
+class CommandLine : public Adapter {
+ public:
+  void add_ship() override;
+  void fire_at() override;
 };
