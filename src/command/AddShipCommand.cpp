@@ -2,7 +2,10 @@
 
 #include "AddShipCommand.h"
 
-std::string AddShipCommand::execute(const query& request) {
+AddShipCommand::AddShipCommand(Battlefield* local_copy) : Command(local_copy) {}
+
+std::string AddShipCommand::execute(std::initializer_list<int> data) {
+  Command::Query request(data);
   int left = std::max(0, std::min(request.front.first, request.back.first) - 1);
   int right = std::min(9, std::max(request.front.first, request.back.first) + 1);
   int down = std::max(0, std::min(request.front.second, request.back.second) - 1);

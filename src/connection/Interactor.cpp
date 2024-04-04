@@ -5,9 +5,13 @@
 Interactor::Interactor() : command_(nullptr) {}
 
 void Interactor::handle_event() {
-    /* not ready */
+    // todo
 }
 
 std::string Interactor::process_request(std::initializer_list<int> data) {
-  return "";
+  Command* real_command = command_->get_command(data);  // allocated with new
+  std::string response = real_command->execute(data);
+  // todo process response
+  delete real_command;
+  return response;
 }

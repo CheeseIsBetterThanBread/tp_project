@@ -4,5 +4,6 @@
 
 class AddShipCommand : public Command {
  public:
-  std::string execute(const query&) override;
+  AddShipCommand(Battlefield* local_copy);
+  std::string execute(std::initializer_list<int>) override;
 };

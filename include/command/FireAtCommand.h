@@ -4,5 +4,6 @@
 
 class FireAtCommand : public Command {
  public:
-  std::string execute(const query&) override;
+  FireAtCommand(Battlefield* local_copy);
+  std::string execute(std::initializer_list<int>) override;
 };

@@ -2,13 +2,16 @@
 
 #include "FireAtCommand.h"
 
-std::string FireAtCommand::execute(const query& request) {
+FireAtCommand::FireAtCommand(Battlefield* local_copy) : Command(local_copy) {}
+
+std::string FireAtCommand::execute(std::initializer_list<int> data) {
+  Command::Query request(data);
   int& flag = local_copy_->enemies_field_[request.aim.first][request.aim.second];
   if (flag == 0) {
     // can't shoot same square twice
     throw;
   }
-  if (flag == local_copy_->INF) {
+  if (flag == Battlefield::INF) {
     flag = 0;
     return "Missed!";
   }
