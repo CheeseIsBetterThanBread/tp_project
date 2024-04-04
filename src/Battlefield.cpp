@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Battlefield.h"
-#include <vector>
 
 Battlefield::Battlefield()
     : counter_(0), players_field_(size_, std::vector<int>(size_, 0)),
