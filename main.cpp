@@ -13,6 +13,13 @@ void set_up(Interactor& interactor, RemoteServer& server, Adapter* adapter) {
   adapter->set_interactor(&interactor);
 }
 
+void initiate_game(Adapter* adapter) {
+  int ships = 10;
+  for (int index = 0; index < ships; ++index) {
+    adapter->add_ship();
+  }
+}
+
 int main(int argc, char** argv) {
   Battlefield local_copy;
   Command main_command(&local_copy);
@@ -20,5 +27,7 @@ int main(int argc, char** argv) {
   RemoteServer server;
   Adapter* adapter = Adapter::get_adapter(static_cast<std::string>(argv[1]));
   set_up(interactor, server, adapter);
+  initiate_game(adapter);
+  // process of the game
   delete adapter;
 }
