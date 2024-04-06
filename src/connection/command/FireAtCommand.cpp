@@ -11,7 +11,8 @@ std::string FireAtCommand::execute(std::initializer_list<int> data) {
     // can't shoot same square twice
     throw;
   }
-  if (flag == Battlefield::INF) {
+  const int INF = local_copy_->INF;
+  if (flag == INF) {
     flag = 0;
     return "Missed!";
   }

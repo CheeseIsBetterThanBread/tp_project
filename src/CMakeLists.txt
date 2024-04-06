@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.10)
 project(Internal)
 
 add_subdirectory(connection)
-add_subdirectory(command)
 add_subdirectory(interface)
 
 set(SOURCES Battlefield.cpp)

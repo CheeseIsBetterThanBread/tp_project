@@ -21,9 +21,18 @@ Command::Query::Query(std::initializer_list<int> data) {
   back = {*iterator, *(++iterator)};
 }
 
-Command* Command::get_command(std::initializer_list<int> data) {
+std::string Command::execute(std::initializer_list<int> data) {
+  return "something went wrong";
+}
+
+std::string Command::process(std::initializer_list<int> data) {
+  Command* real_command = nullptr;
   if (data.size() == 2) {
-    return new FireAtCommand(local_copy_);
+    real_command = new FireAtCommand(local_copy_);
+  } else {
+    real_command = new AddShipCommand(local_copy_);
   }
-  return new AddShipCommand(local_copy_);
+  std::string answer = real_command->execute(data);
+  delete real_command;
+  return answer;
 }

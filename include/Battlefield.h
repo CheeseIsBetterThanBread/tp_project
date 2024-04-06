@@ -7,8 +7,8 @@ class Battlefield {
   Battlefield();
   Battlefield* get_pointer();
 
-  static const int size_ = 10;
-  static const int INF = 1'000'000'000;
+  const int size_;
+  const int INF;
   int counter_;
 
   std::vector<std::vector<int>> players_field_;

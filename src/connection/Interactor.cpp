@@ -1,17 +1,16 @@
 #pragma once
 
 #include "Interactor.h"
+#include "Command.h"
 
-Interactor::Interactor() : command_(nullptr) {}
+Interactor::Interactor(Command* command) : command_(command) {}
 
 void Interactor::handle_event() {
     // todo
 }
 
 std::string Interactor::process_request(std::initializer_list<int> data) {
-  Command* real_command = command_->get_command(data);  // allocated with new
-  std::string response = real_command->execute(data);
+  std::string response = command_->process(data);
   // todo process response
-  delete real_command;
   return response;
 }

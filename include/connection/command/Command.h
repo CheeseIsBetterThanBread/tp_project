@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Battlefield.h"
+#include "../../Battlefield.h"
 #include <initializer_list>
 #include <string>
 #include <utility>
@@ -17,8 +17,8 @@ class Command {
 
  public:
   Command(Battlefield*);
-  virtual std::string execute(std::initializer_list<int> data) = 0;
-  Command* get_command(std::initializer_list<int>);
+  virtual std::string execute(std::initializer_list<int> data);
+  std::string process(std::initializer_list<int> data);
 
   virtual ~Command() = default;
 

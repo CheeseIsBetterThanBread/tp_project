@@ -6,10 +6,12 @@
 class Adapter {
  public:
   Adapter();
-  virtual void add_ship() = 0;
-  virtual void fire_at() = 0;
+  virtual void add_ship();
+  virtual void fire_at();
   void set_interactor(Interactor* interactor);
   static Adapter* get_adapter(const std::string& type);
+
+  virtual ~Adapter() = default;
 
  protected:
   Interactor* interactor_;

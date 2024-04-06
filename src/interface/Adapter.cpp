@@ -20,3 +20,7 @@ Adapter* Adapter::get_adapter(const std::string& type) {
   }
   return nullptr;
 }
+
+void Adapter::fire_at() {}
+
+void Adapter::add_ship() {}
