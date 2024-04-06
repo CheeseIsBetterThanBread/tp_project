@@ -1,18 +1,7 @@
 #pragma once
 
-#include "Adapter.h"
+#include "CommandLine.h"
 #include <iostream>
-
-Adapter::Adapter() : interactor_(nullptr) {
-  ships_left.resize(5);
-  for (int i = 1; i < 5; ++i) {
-    ships_left[i] = 5 - i;
-  }
-}
-
-void Adapter::set_interactor(Interactor* interactor) {
-  interactor_ = interactor;
-}
 
 void CommandLine::add_ship() {
   std::cout << "Enter coordinates(4) of your ship, separated by comma\n";

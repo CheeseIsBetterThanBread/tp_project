@@ -1,6 +1,6 @@
 #pragma once
 
-#include "connection/Interactor.h"
+#include "../connection/Interactor.h"
 #include <vector>
 
 class Adapter {
@@ -9,14 +9,9 @@ class Adapter {
   virtual void add_ship() = 0;
   virtual void fire_at() = 0;
   void set_interactor(Interactor* interactor);
+  static Adapter* get_adapter(const std::string& type);
 
  protected:
   Interactor* interactor_;
   std::vector<int> ships_left;
-};
-
-class CommandLine : public Adapter {
- public:
-  void add_ship() override;
-  void fire_at() override;
 };
