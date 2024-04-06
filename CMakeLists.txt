@@ -11,6 +11,7 @@ add_subdirectory(src)
 add_subdirectory(tests)
 
 add_executable(exe main.cpp)
+
 target_include_directories(exe PRIVATE ${CMAKE_SOURCE_DIR}/include)
 target_link_libraries(exe command
                           connection

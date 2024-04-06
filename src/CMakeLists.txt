@@ -6,6 +6,6 @@ add_subdirectory(command)
 add_subdirectory(interface)
 
 set(SOURCES Battlefield.cpp)
-add_library(internal STATIC ${SOURCES})
+add_library(internal SHARED ${SOURCES})
 
 target_include_directories(internal PRIVATE ${CMAKE_SOURCE_DIR}/include)
