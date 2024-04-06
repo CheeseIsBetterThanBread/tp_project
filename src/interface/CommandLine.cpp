@@ -26,6 +26,7 @@ void CommandLine::add_ship() {
     int second;
     int third;
     int fourth;
+    // std::cout << first_ << second_ << third_ << fourth_;
     try {
       first = first_ - 'A';
       second_.pop_back();

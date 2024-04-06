@@ -27,5 +27,5 @@ std::string AddShipCommand::execute(std::initializer_list<int> data) {
       local_copy_->players_field_[x][y] = local_copy_->counter_;
     }
   }
-  return "Ship is placed";
+  return "Ship is placed\n";
 }

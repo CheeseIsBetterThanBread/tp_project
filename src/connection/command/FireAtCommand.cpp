@@ -14,15 +14,15 @@ std::string FireAtCommand::execute(std::initializer_list<int> data) {
   const int INF = local_copy_->INF;
   if (flag == INF) {
     flag = 0;
-    return "Missed!";
+    return "Missed!\n";
   }
   flag *= -1;
   for (std::vector<int>& row : local_copy_->enemies_field_) {
     for (int& item : row) {
       if (item == -flag) {
-        return "Got a hit!";
+        return "Got a hit!\n";
       }
     }
   }
-  return "One more down!";
+  return "One more down!\n";
 }
