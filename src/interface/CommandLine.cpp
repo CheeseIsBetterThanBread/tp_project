@@ -27,11 +27,11 @@ void CommandLine::add_ship() {
     try {
       first = toupper(first_) - 'A';
       second_.pop_back();
-      second = std::stoi(second_);
+      second = std::stoi(second_) - 1;
       third = toupper(third_) - 'A';
-      fourth = std::stoi(fourth_);
+      fourth = std::stoi(fourth_) - 1;
     } catch (...) {
-      std::cout << "You have to use symbols from A to J and numbers from 1 to 10\n";
+      std::cout << "You have to use symbols from A(a) to J(j) and numbers from 1 to 10\n";
       continue;
     }
     if (std::min({first, second, third, fourth}) < 0 ||
@@ -50,10 +50,8 @@ void CommandLine::add_ship() {
     }
     --ships_left[size];
     std::string output;
-    std::cout << size << std::endl;
     try {
       output = interactor_->process_request({first, second, third, fourth});
-      std::cout << "i'm here" << std::endl;
     } catch (...) {
       std::cout << "Your ship intersects other ships\n";
       continue;
