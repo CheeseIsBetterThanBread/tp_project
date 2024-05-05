@@ -1,23 +1,25 @@
 #pragma once
 
+#include <memory>
+
 class Observable;
 
 class Observer {
  public:
   Observer();
   virtual void handle_event() = 0;
-  void set_object(Observable* object);
+  void set_object(const std::shared_ptr<Observable>& object);
 
  protected:
-  Observable* object_;
+  std::weak_ptr<Observable> object_;
 };
 
-class Observable {
+class Observable : public std::enable_shared_from_this<Observable> {
  public:
   Observable();
   void notify();
-  void set_observer(Observer* observer);
+  void set_observer(const std::shared_ptr<Observer>& observer);
 
  protected:
-  Observer* observer_;
+  std::weak_ptr<Observer> observer_;
 };

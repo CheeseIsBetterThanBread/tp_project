@@ -1,7 +1,8 @@
 #include "Interactor.h"
 #include "Command.h"
 
-Interactor::Interactor(Command* command) : command_(command) {}
+Interactor::Interactor(std::shared_ptr<Command>&& command)
+    : command_(std::move(command)) {}
 
 void Interactor::handle_event() {
     // todo

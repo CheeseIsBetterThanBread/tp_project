@@ -8,13 +8,13 @@ Adapter::Adapter() : interactor_(nullptr) {
   }
 }
 
-void Adapter::set_interactor(Interactor* interactor) {
+void Adapter::set_interactor(const std::shared_ptr<Interactor>& interactor) {
   interactor_ = interactor;
 }
 
-Adapter* Adapter::get_adapter(const std::string& type) {
+std::shared_ptr<Adapter> Adapter::get_adapter(const std::string& type) {
   if (type == "terminal") {
-    return new CommandLine;
+    return std::make_shared<CommandLine>();
   }
   return nullptr;
 }

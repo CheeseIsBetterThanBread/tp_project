@@ -2,15 +2,19 @@
 
 #include "ObserverSystem.h"
 #include "command/Command.h"
+
 #include <initializer_list>
+#include <memory>
 #include <string>
 
 class Interactor : public Observer {
  public:
-  Interactor(Command* command);
+  explicit Interactor(std::shared_ptr<Command>&& command);
   void handle_event() override;
   std::string process_request(std::initializer_list<int>);
 
+  virtual ~Interactor() = default;
+
  private:
-  Command* command_;
+  std::shared_ptr<Command> command_;
 };
