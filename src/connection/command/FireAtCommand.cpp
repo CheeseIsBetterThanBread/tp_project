@@ -1,4 +1,4 @@
-#pragma once
+#include <stdexcept>
 
 #include "FireAtCommand.h"
 
@@ -9,7 +9,7 @@ std::string FireAtCommand::execute(std::initializer_list<int> data) {
   int& flag = local_copy_->enemies_field_[request.aim.first][request.aim.second];
   if (flag == 0) {
     // can't shoot same square twice
-    throw;
+    throw std::invalid_argument("already shot there");
   }
   const int INF = local_copy_->INF;
   if (flag == INF) {

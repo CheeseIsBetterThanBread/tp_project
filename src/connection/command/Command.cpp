@@ -1,5 +1,3 @@
-#pragma once
-
 #include "Command.h"
 #include "FireAtCommand.h"
 #include "AddShipCommand.h"
@@ -21,7 +19,7 @@ Command::Query::Query(std::initializer_list<int> data) {
   back = {*iterator, *(++iterator)};
 }
 
-std::string Command::execute(std::initializer_list<int> data) {
+std::string Command::execute(std::initializer_list<int>) {
   return "something went wrong";
 }
 
@@ -32,7 +30,13 @@ std::string Command::process(std::initializer_list<int> data) {
   } else {
     real_command = new AddShipCommand(local_copy_);
   }
-  std::string answer = real_command->execute(data);
+  std::string answer;
+  try {
+    answer = real_command->execute(data);
+  } catch (...) {
+    delete real_command;
+    throw;
+  }
   delete real_command;
   return answer;
 }

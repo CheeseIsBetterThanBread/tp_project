@@ -1,5 +1,3 @@
-#pragma once
-
 #include "Battlefield.h"
 
 Battlefield::Battlefield()

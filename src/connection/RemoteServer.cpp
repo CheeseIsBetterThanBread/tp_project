@@ -1,5 +1,3 @@
-#pragma once
-
 #include "RemoteServer.h"
 
 RemoteServer::RemoteServer() = default;

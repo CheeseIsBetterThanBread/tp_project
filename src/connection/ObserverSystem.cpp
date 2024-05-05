@@ -1,5 +1,3 @@
-#pragma once
-
 #include "ObserverSystem.h"
 
 Observable::Observable() : observer_(nullptr) {};

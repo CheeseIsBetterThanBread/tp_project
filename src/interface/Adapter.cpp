@@ -1,5 +1,3 @@
-#pragma once
-
 #include "Adapter.h"
 #include "CommandLine.h"
 

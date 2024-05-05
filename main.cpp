@@ -1,5 +1,3 @@
-#pragma once
-
 #include "Battlefield.h"
 #include "interface/Adapter.h"
 #include "connection/Interactor.h"
@@ -20,7 +18,7 @@ void initiate_game(Adapter* adapter) {
   }
 }
 
-int main(int argc, char** argv) {
+int main(int, char** argv) {
   Battlefield local_copy;
   Command main_command(&local_copy);
   Interactor interactor(&main_command);

@@ -1,5 +1,3 @@
-#pragma once
-
 #include "CommandLine.h"
 #include <iostream>
 
@@ -26,12 +24,11 @@ void CommandLine::add_ship() {
     int second;
     int third;
     int fourth;
-    // std::cout << first_ << second_ << third_ << fourth_;
     try {
-      first = first_ - 'A';
+      first = toupper(first_) - 'A';
       second_.pop_back();
       second = std::stoi(second_);
-      third = third_ - 'A';
+      third = toupper(third_) - 'A';
       fourth = std::stoi(fourth_);
     } catch (...) {
       std::cout << "You have to use symbols from A to J and numbers from 1 to 10\n";
@@ -42,7 +39,7 @@ void CommandLine::add_ship() {
       std::cout << "You have to place your ship inside of the playing field\n";
       continue;
     }
-    int size = std::abs(first - third) + std::abs(second - fourth);
+    int size = std::abs(first - third) + std::abs(second - fourth) + 1;
     if ((first != third && second != fourth) || size > 4) {
       std::cout << "You can't use this ship in a game\n";
       continue;
@@ -53,13 +50,15 @@ void CommandLine::add_ship() {
     }
     --ships_left[size];
     std::string output;
+    std::cout << size << std::endl;
     try {
       output = interactor_->process_request({first, second, third, fourth});
+      std::cout << "i'm here" << std::endl;
     } catch (...) {
       std::cout << "Your ship intersects other ships\n";
       continue;
     }
-    std::cout << output;
+    std::cout << output << '\n';
     correct = true;
   }
 }

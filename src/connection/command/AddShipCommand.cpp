@@ -1,4 +1,4 @@
-#pragma once
+#include <stdexcept>
 
 #include "AddShipCommand.h"
 
@@ -14,7 +14,7 @@ std::string AddShipCommand::execute(std::initializer_list<int> data) {
     for (int y = down; y <= up; ++y) {
       if (local_copy_->players_field_[x][y] != 0) {
         // ships intersect
-        throw;
+        throw std::invalid_argument("ships intersect");
       }
     }
   }
