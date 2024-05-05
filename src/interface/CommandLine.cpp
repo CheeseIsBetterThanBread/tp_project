@@ -1,5 +1,41 @@
 #include "CommandLine.h"
+
 #include <iostream>
+
+std::string convert(int number) {
+  std::string answer;
+  while (number > 0) {
+    answer += '0' + number % 10;
+    number /= 10;
+  }
+  std::reverse(answer.begin(), answer.end());
+  return answer;
+}
+
+void print(const std::vector<std::vector<std::string>>& display) {
+  const int size = 10;
+  std::string separator = "|";
+  std::string answer;
+  std::string head = " ";
+  std::string filler = "--";
+  for (int i = 1; i <= 10; ++i) {
+    head += separator + convert(i);
+    filler += "--";
+  }
+  head += '\n';
+  filler += '\n';
+  answer += head;
+  for (int row = 0; row < size; ++row) {
+    answer += filler;
+    answer += 'A' + row;
+    answer += separator;
+    for (int column = 0; column < size; ++column) {
+      answer += display[row][column] + separator;
+    }
+    answer += '\n';
+  }
+  std::cout << answer;
+}
 
 void CommandLine::add_ship() {
   std::cout << "Enter coordinates(4) of your ship, separated by comma\n";
@@ -31,7 +67,8 @@ void CommandLine::add_ship() {
       third = toupper(third_) - 'A';
       fourth = std::stoi(fourth_) - 1;
     } catch (...) {
-      std::cout << "You have to use symbols from A(a) to J(j) and numbers from 1 to 10\n";
+      std::cout
+          << "You have to use symbols from A(a) to J(j) and numbers from 1 to 10\n";
       continue;
     }
     if (std::min({first, second, third, fourth}) < 0 ||
@@ -49,14 +86,13 @@ void CommandLine::add_ship() {
       continue;
     }
     --ships_left[size];
-    std::string output;
     try {
-      output = interactor_->process_request({first, second, third, fourth});
+      interactor_->process_request({first, second, third, fourth});
     } catch (...) {
       std::cout << "Your ship intersects other ships\n";
       continue;
     }
-    std::cout << output << '\n';
+    update_field();
     correct = true;
   }
 }
@@ -90,4 +126,26 @@ void CommandLine::fire_at() {
     correct = true;
     std::cout << output;
   }
+}
+
+void CommandLine::update_field() {
+  std::string square = "\u25FC";
+  std::string cross = "\u00D7";
+  std::string blank = " ";
+  auto pointer = interactor_->get_instance();
+  std::vector<std::vector<std::string>>
+      display(pointer->size_, std::vector<std::string>(pointer->size_, blank));
+  for (int x = 0; x < pointer->size_; ++x) {
+    for (int y = 0; y < pointer->size_; ++y) {
+      if (pointer->players_field_[x][y] == 0) {
+        continue;
+      }
+      if (pointer->players_field_[x][y] > 0) {
+        display[x][y] = square;
+      } else {
+        display[x][y] = cross;
+      }
+    }
+  }
+  print(display);
 }

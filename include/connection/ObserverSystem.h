@@ -10,6 +10,8 @@ class Observer {
   virtual void handle_event() = 0;
   void set_object(const std::shared_ptr<Observable>& object);
 
+  virtual ~Observer() = default;
+
  protected:
   std::weak_ptr<Observable> object_;
 };

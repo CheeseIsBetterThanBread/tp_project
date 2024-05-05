@@ -34,3 +34,7 @@ std::string Command::process(std::initializer_list<int> data) {
   std::string answer = real_command->execute(data);
   return answer;
 }
+
+std::shared_ptr<Battlefield> Command::get_instance() {
+  return local_copy_;
+}

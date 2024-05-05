@@ -13,3 +13,7 @@ std::string Interactor::process_request(std::initializer_list<int> data) {
   // todo process response
   return response;
 }
+
+std::shared_ptr<Battlefield> Interactor::get_instance() {
+  return command_->get_instance();
+}

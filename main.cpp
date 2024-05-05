@@ -31,4 +31,10 @@ int main(int, char** argv) {
   set_up(interactor, server, adapter);
   initiate_game(adapter);
   // process of the game
+  /*std::string square = "\u25FC";
+  std::string cross = "\u00D7";
+  std::string dot = "\u00B7";
+  std::string blank = " ";
+  std::string separator = "|";
+  */
 }

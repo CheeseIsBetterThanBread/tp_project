@@ -22,3 +22,5 @@ std::shared_ptr<Adapter> Adapter::get_adapter(const std::string& type) {
 void Adapter::fire_at() {}
 
 void Adapter::add_ship() {}
+
+void Adapter::update_field() {}

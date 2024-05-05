@@ -24,6 +24,8 @@ class Command {
 
   virtual ~Command() = default;
 
+  std::shared_ptr<Battlefield> get_instance();
+
  protected:
   std::shared_ptr<Battlefield> local_copy_;
 };

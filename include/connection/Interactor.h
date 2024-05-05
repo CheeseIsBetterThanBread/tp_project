@@ -13,7 +13,7 @@ class Interactor : public Observer {
   void handle_event() override;
   std::string process_request(std::initializer_list<int>);
 
-  virtual ~Interactor() = default;
+  std::shared_ptr<Battlefield> get_instance();
 
  private:
   std::shared_ptr<Command> command_;
