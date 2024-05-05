@@ -2,7 +2,8 @@
 
 #include "FireAtCommand.h"
 
-FireAtCommand::FireAtCommand(Battlefield* local_copy) : Command(local_copy) {}
+FireAtCommand::FireAtCommand(const std::shared_ptr<Battlefield>& local_copy)
+    : Command(local_copy) {}
 
 std::string FireAtCommand::execute(std::initializer_list<int> data) {
   Command::Query request(data);

@@ -2,7 +2,8 @@
 #include "FireAtCommand.h"
 #include "AddShipCommand.h"
 
-Command::Command(Battlefield* local_copy) : local_copy_(local_copy) {}
+Command::Command(const std::shared_ptr<Battlefield>& local_copy)
+    : local_copy_(local_copy) {}
 
 Command::Query::Query(std::initializer_list<int> data) {
   int size = static_cast<int>(data.size());
@@ -24,19 +25,12 @@ std::string Command::execute(std::initializer_list<int>) {
 }
 
 std::string Command::process(std::initializer_list<int> data) {
-  Command* real_command = nullptr;
+  std::shared_ptr<Command> real_command;
   if (data.size() == 2) {
-    real_command = new FireAtCommand(local_copy_);
+    real_command = std::make_shared<FireAtCommand>(local_copy_);
   } else {
-    real_command = new AddShipCommand(local_copy_);
+    real_command = std::make_shared<AddShipCommand>(local_copy_);
   }
-  std::string answer;
-  try {
-    answer = real_command->execute(data);
-  } catch (...) {
-    delete real_command;
-    throw;
-  }
-  delete real_command;
+  std::string answer = real_command->execute(data);
   return answer;
 }

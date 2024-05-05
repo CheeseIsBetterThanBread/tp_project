@@ -2,7 +2,8 @@
 
 #include "AddShipCommand.h"
 
-AddShipCommand::AddShipCommand(Battlefield* local_copy) : Command(local_copy) {}
+AddShipCommand::AddShipCommand(const std::shared_ptr<Battlefield>& local_copy)
+    : Command(local_copy) {}
 
 std::string AddShipCommand::execute(std::initializer_list<int> data) {
   Command::Query request(data);

@@ -1,9 +1,11 @@
 #pragma once
 
-#include "../../Battlefield.h"
 #include <initializer_list>
+#include <memory>
 #include <string>
 #include <utility>
+
+#include "../../Battlefield.h"
 
 class Command {
  protected:
@@ -16,12 +18,12 @@ class Command {
   };
 
  public:
-  Command(Battlefield*);
+  explicit Command(const std::shared_ptr<Battlefield>& local_copy);
   virtual std::string execute(std::initializer_list<int> data);
   std::string process(std::initializer_list<int> data);
 
   virtual ~Command() = default;
 
  protected:
-  Battlefield* local_copy_;
+  std::shared_ptr<Battlefield> local_copy_;
 };

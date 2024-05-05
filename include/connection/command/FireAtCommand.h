@@ -4,6 +4,6 @@
 
 class FireAtCommand : public Command {
  public:
-  FireAtCommand(Battlefield* local_copy);
+  explicit FireAtCommand(const std::shared_ptr<Battlefield>& local_copy);
   std::string execute(std::initializer_list<int>) override;
 };

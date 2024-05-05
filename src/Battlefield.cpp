@@ -5,6 +5,6 @@ Battlefield::Battlefield()
       players_field_(size_, std::vector<int>(size_, 0)),
       enemies_field_(size_, std::vector<int>(size_, INF)) {}
 
-Battlefield* Battlefield::get_pointer() {
-  return this;
+std::shared_ptr<Battlefield> Battlefield::get_pointer() {
+  return shared_from_this();
 }

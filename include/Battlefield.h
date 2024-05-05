@@ -1,11 +1,12 @@
 #pragma once
 
+#include <memory>
 #include <vector>
 
-class Battlefield {
+class Battlefield : std::enable_shared_from_this<Battlefield> {
  public:
   Battlefield();
-  Battlefield* get_pointer();
+  std::shared_ptr<Battlefield> get_pointer();
 
   const int size_;
   const int INF;

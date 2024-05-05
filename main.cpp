@@ -4,6 +4,7 @@
 #include "connection/RemoteServer.h"
 #include "connection/command/Command.h"
 
+#include <memory>
 #include <string>
 
 void set_up(Interactor& interactor, RemoteServer& server, Adapter* adapter) {
@@ -19,8 +20,8 @@ void initiate_game(Adapter* adapter) {
 }
 
 int main(int, char** argv) {
-  Battlefield local_copy;
-  Command main_command(&local_copy);
+  auto local_copy = std::make_shared<Battlefield>();
+  Command main_command(local_copy);
   Interactor interactor(&main_command);
   RemoteServer server;
   Adapter* adapter = Adapter::get_adapter(static_cast<std::string>(argv[1]));
