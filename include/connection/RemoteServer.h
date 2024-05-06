@@ -9,6 +9,7 @@ class RemoteServer : public Observable {
   virtual ~RemoteServer();
 
   void send_layout();
+  void send_data(const char* data) const override;
   void receive_data();
 
  private:

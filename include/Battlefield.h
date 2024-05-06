@@ -12,6 +12,7 @@ class Battlefield : std::enable_shared_from_this<Battlefield> {
   const int size_;
   const int INF;
   int counter_;
+  int alive_;
 
   std::vector<std::vector<int>> players_field_;
   std::vector<std::vector<int>> enemies_field_;

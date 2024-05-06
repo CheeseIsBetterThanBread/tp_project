@@ -51,17 +51,60 @@ int main() {
     }
   }
 
-  // communicate with clients
-  char buffer[256];
-  while (true) {
-    for (int client_sockfd : client_sockets) {
-      recv(client_sockfd, buffer, 256, 0);
-      std::cout << "Received from client: " << buffer << std::endl;
+  // statuses after shots
+  auto wait = "w";
+  auto go = "g";
+  char miss = 'm';
+  char hit = 'h';
+  auto victory = "v";
+  auto loss = "l";
 
-      // Send response back to the client
-      const char* message = "Hello from server!";
-      send(client_sockfd, message, strlen(message), 0);
+  // exchange layouts
+  int active = 0;
+  {
+    char active_buffer[128];
+    char passive_buffer[128];
+    recv(client_sockets[active], active_buffer, 128, 0);
+    recv(client_sockets[active ^ 1], passive_buffer, 128, 0);
+
+    char active_response[256];
+    char passive_response[256];
+    strcat(active_response, go);
+    strcat(active_response, passive_buffer);
+    strcat(passive_response, wait);
+    strcat(passive_response, active_buffer);
+
+    send(client_sockets[active], active_response, strlen(active_response), 0);
+    send(client_sockets[active ^ 1], passive_response, strlen(passive_response), 0);
+  }
+
+  // communicate with clients
+  char buffer[64];
+  while (true) {
+    int active_client = client_sockets[active];
+    int passive_client = client_sockets[active ^ 1];
+    recv(active_client, buffer, 64, 0);
+
+    char response[256];
+    if (buffer[0] == hit) {
+      strcat(response, wait);
+      strcat(response, buffer + 1);
+      send(passive_client, response, strlen(response), 0);
+      send(active_client, go, strlen(go), 0);
+      continue;
     }
+    if (buffer[0] == miss) {
+      strcat(response, go);
+      strcat(response, buffer + 1);
+      send(passive_client, response, strlen(response), 0);
+      send(active_client, wait, strlen(wait), 0);
+      active ^= 1;
+      continue;
+    }
+
+    // active client shot last ship
+    send(active_client, victory, strlen(victory), 0);
+    send(passive_client, loss, strlen(loss), 0);
     break;
   }
 

@@ -2,7 +2,7 @@
 
 Observable::Observable() : observer_() {};
 
-void Observable::notify(const std::string& response) {
+void Observable::notify(std::string& response) {
   observer_.lock()->handle_event(response);
 }
 

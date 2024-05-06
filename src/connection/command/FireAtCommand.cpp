@@ -18,6 +18,7 @@ std::string FireAtCommand::execute(std::initializer_list<int> data) {
     return "Missed!\n";
   }
   flag *= -1;
+  --local_copy_->alive_;
   for (std::vector<int>& row : local_copy_->enemies_field_) {
     for (int& item : row) {
       if (item == -flag) {

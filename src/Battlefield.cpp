@@ -1,7 +1,7 @@
 #include "Battlefield.h"
 
 Battlefield::Battlefield()
-    : size_(10), INF(1'000'000'000), counter_(0),
+    : size_(10), INF(1'000'000'000), counter_(0), alive_(20),
       players_field_(size_, std::vector<int>(size_, 0)),
       enemies_field_(size_, std::vector<int>(size_, INF)) {}
 

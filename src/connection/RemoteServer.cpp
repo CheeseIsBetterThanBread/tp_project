@@ -67,6 +67,10 @@ void RemoteServer::send_layout() {
   send(sockfd_, buffer, strlen(buffer), 0);
 }
 
+void RemoteServer::send_data(const char* data) const {
+  send(sockfd_, data, strlen(data), 0);
+}
+
 void RemoteServer::receive_data() {
   char buffer[256];
   recv(sockfd_, buffer, strlen(buffer), 0);
