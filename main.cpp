@@ -23,14 +23,16 @@ void initiate_game(const std::shared_ptr<Adapter>& adapter) {
 }
 
 int main(int, char** argv) {
+  // create all necessary objects and connect them
   auto local_copy = std::make_shared<Battlefield>();
   auto interactor = std::make_shared<Interactor>(local_copy);
   auto server = std::make_shared<RemoteServer>();
   auto adapter = Adapter::get_adapter(static_cast<std::string>(argv[1]));
   set_up(interactor, server, adapter);
-  initiate_game(adapter);
 
+  // set up playing fields
+  initiate_game(adapter);
   server->send_layout();
-  auto other = server->receive_data();
-  // convert 'other' to layout
+  auto layout = server->receive_data();
+  local_copy->get_layout(layout);
 }

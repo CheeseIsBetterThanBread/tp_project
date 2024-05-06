@@ -8,3 +8,17 @@ Battlefield::Battlefield()
 std::shared_ptr<Battlefield> Battlefield::get_pointer() {
   return shared_from_this();
 }
+
+void Battlefield::get_layout(const std::string& layout) {
+  for (int counter = 0; counter < 10; ++counter) {
+    int row_low = layout[4 * counter] - '0';
+    int column_low = layout[4 * counter + 1] - '0';
+    int row_high = layout[4 * counter + 2] - '0';
+    int column_high = layout[4 * counter + 3] - '0';
+    for (int row = row_low; row <= row_high; ++row) {
+      for (int column = column_low; column <= column_high; ++column) {
+        enemies_field_[row][column] = counter + 1;
+      }
+    }
+  }
+}
