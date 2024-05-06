@@ -2,6 +2,8 @@
 
 #include <memory>
 
+#include "../Battlefield.h"
+
 class Observable;
 
 class Observer {
