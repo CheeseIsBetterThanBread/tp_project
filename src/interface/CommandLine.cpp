@@ -135,15 +135,37 @@ void CommandLine::update_field() {
   auto pointer = interactor_->get_instance();
   std::vector<std::vector<std::string>>
       display(pointer->size_, std::vector<std::string>(pointer->size_, blank));
-  for (int x = 0; x < pointer->size_; ++x) {
-    for (int y = 0; y < pointer->size_; ++y) {
-      if (pointer->players_field_[x][y] == 0) {
+  for (int row = 0; row < pointer->size_; ++row) {
+    for (int column = 0; column < pointer->size_; ++column) {
+      if (pointer->players_field_[row][column] == 0) {
         continue;
       }
-      if (pointer->players_field_[x][y] > 0) {
-        display[x][y] = square;
+      if (pointer->players_field_[row][column] > 0) {
+        display[row][column] = square;
       } else {
-        display[x][y] = cross;
+        display[row][column] = cross;
+      }
+    }
+  }
+  print(display);
+}
+
+void CommandLine::update_enemy() {
+  std::string cross = "\u00D7";
+  std::string dot = "\u00B7";
+  std::string blank = " ";
+  auto pointer = interactor_->get_instance();
+  std::vector<std::vector<std::string>>
+      display(pointer->size_, std::vector<std::string>(pointer->size_));
+  for (int row = 0; row < pointer->size_; ++row) {
+    for (int column = 0; column < pointer->size_; ++column) {
+      int value = pointer->enemies_field_[row][column];
+      if (value < 0) {
+        display[row][column] = cross;
+      } else if (value == pointer->INF) {
+        display[row][column] = blank;
+      } else {
+        display[row][column] = dot;
       }
     }
   }

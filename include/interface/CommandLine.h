@@ -7,4 +7,5 @@ class CommandLine : public Adapter {
   void add_ship() override;
   void fire_at() override;
   void update_field() override;
+  void update_enemy() override;
 };

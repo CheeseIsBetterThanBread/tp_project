@@ -24,3 +24,5 @@ void Adapter::fire_at() {}
 void Adapter::add_ship() {}
 
 void Adapter::update_field() {}
+
+void Adapter::update_enemy() {}
