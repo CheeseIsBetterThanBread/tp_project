@@ -10,7 +10,7 @@
 class Interactor : public Observer {
  public:
   explicit Interactor(const std::shared_ptr<Battlefield>& local_copy);
-  void handle_event() override;
+  void handle_event(const std::string& response) override;
   void update() override;
   std::string process_request(std::initializer_list<int>);
 

@@ -2,8 +2,8 @@
 
 Observable::Observable() : observer_() {};
 
-void Observable::notify() {
-  observer_.lock()->handle_event();
+void Observable::notify(const std::string& response) {
+  observer_.lock()->handle_event(response);
 }
 
 Observer::Observer() : object_() {}

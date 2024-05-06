@@ -33,6 +33,5 @@ int main(int, char** argv) {
   // set up playing fields
   initiate_game(adapter);
   server->send_layout();
-  auto layout = server->receive_data();
-  local_copy->get_layout(layout);
+  server->receive_data();
 }
