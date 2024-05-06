@@ -34,4 +34,18 @@ int main(int, char** argv) {
   initiate_game(adapter);
   server->send_layout();
   server->receive_data();
+
+  // gameplay
+  while (interactor->is_valid()) {
+    while (interactor->is_active()) {
+      adapter->fire_at();
+    }
+  }
+
+  // end of the game
+  if (interactor->is_active()) { // player won
+    adapter->finish_victory();
+  } else { // player lost
+    adapter->finish_defeat();
+  }
 }

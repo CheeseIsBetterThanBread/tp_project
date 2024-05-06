@@ -16,6 +16,7 @@ class Interactor : public Observer {
 
   std::shared_ptr<Battlefield> get_instance() override;
   bool is_active() const;
+  bool is_valid() const;
 
  private:
   std::shared_ptr<Command> command_;

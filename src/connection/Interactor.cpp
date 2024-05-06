@@ -20,7 +20,8 @@ void Interactor::handle_event(std::string& response) {
     command_->process({row, column});
     return;
   }
-  // todo
+  command_.reset();
+  active_ = response[0] == 'w';
 }
 
 std::string Interactor::process_request(std::initializer_list<int> data) {
@@ -54,4 +55,8 @@ std::shared_ptr<Battlefield> Interactor::get_instance() {
 
 bool Interactor::is_active() const {
   return active_;
+}
+
+bool Interactor::is_valid() const {
+  return command_ != nullptr;
 }

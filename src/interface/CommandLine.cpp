@@ -171,3 +171,11 @@ void CommandLine::update_enemy() {
   }
   print(display);
 }
+
+void CommandLine::finish_victory() {
+  std::cout << "Congratulations, you won!\n";
+}
+
+void CommandLine::finish_defeat() {
+  std::cout << "It's okay, you'll get them next time\n";
+}

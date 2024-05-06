@@ -8,4 +8,6 @@ class CommandLine : public Adapter {
   void fire_at() override;
   void update_field() override;
   void update_enemy() override;
+  void finish_victory() override;
+  void finish_defeat() override;
 };
