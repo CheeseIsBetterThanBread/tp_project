@@ -8,7 +8,9 @@ class Observer {
  public:
   Observer();
   virtual void handle_event() = 0;
+  virtual void update() = 0;
   void set_object(const std::shared_ptr<Observable>& object);
+  virtual std::shared_ptr<Battlefield> get_instance() = 0;
 
   virtual ~Observer() = default;
 

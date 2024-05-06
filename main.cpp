@@ -24,11 +24,13 @@ void initiate_game(const std::shared_ptr<Adapter>& adapter) {
 
 int main(int, char** argv) {
   auto local_copy = std::make_shared<Battlefield>();
-  auto interactor =
-      std::make_shared<Interactor>((std::make_shared<Command>(local_copy)));
+  auto interactor = std::make_shared<Interactor>(local_copy);
   auto server = std::make_shared<RemoteServer>();
   auto adapter = Adapter::get_adapter(static_cast<std::string>(argv[1]));
   set_up(interactor, server, adapter);
   initiate_game(adapter);
-  // process of the game
+
+  server->send_layout();
+  auto other = server->receive_data();
+  // convert 'other' to layout
 }

@@ -6,9 +6,12 @@ class RemoteServer : public Observable {
   // plug for now, didn't figure out how to work with sockets
  public:
   RemoteServer();
-  RemoteServer* get_pointer();
 
   ~RemoteServer();
+
+  void send_layout();
+
+  std::string receive_data() const;
 
  private:
   int sockfd_;
