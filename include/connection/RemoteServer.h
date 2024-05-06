@@ -7,4 +7,9 @@ class RemoteServer : public Observable {
  public:
   RemoteServer();
   RemoteServer* get_pointer();
+
+  ~RemoteServer();
+
+ private:
+  int sockfd_;
 };
