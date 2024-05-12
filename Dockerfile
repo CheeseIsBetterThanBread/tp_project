@@ -8,6 +8,7 @@ RUN ./install_requirements.sh
 
 # copy project and build script
 COPY build.sh build.sh
+COPY server.cpp server.cpp
 COPY /tests ./tests
 COPY CMakeLists.txt CMakeLists.txt
 COPY main.cpp main.cpp
@@ -23,9 +24,9 @@ FROM ubuntu:latest
 WORKDIR /
 
 # copy executables and libraries
-COPY --from=build /bin/tests.out ./bin/
-COPY --from=build /bin/exe.out ./bin/
+COPY --from=build /bin ./bin/
 COPY --from=build /lib ./lib/
 
 # entrypoint
+CMD ["./bin/server.out"]
 CMD ["./bin/exe.out"]

@@ -1,5 +1,5 @@
-#pragma once
-
 #include <gtest/gtest.h>
 
-// write some tests
+TEST(SimpleTest, TestPlug) {
+  ASSERT_EQ(2 + 2, 4);
+}
