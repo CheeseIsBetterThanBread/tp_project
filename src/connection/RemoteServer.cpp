@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <arpa/inet.h>
 #include <cstring>
 #include <iostream>
@@ -8,7 +9,7 @@
 
 RemoteServer::RemoteServer() {
   int PORT = 8080;
-  const char* IP = "192.168.1.100";
+  const char* IP = "0.0.0.0";
 
   // create a socket
   sockfd_ = socket(AF_INET, SOCK_STREAM, 0);

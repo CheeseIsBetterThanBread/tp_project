@@ -7,7 +7,7 @@
 
 int main() {
   int PORT = 8080;
-  const char* IP = "192.168.1.100";
+  const char* IP = "0.0.0.0";
 
   // create a socket
   int sockfd = socket(AF_INET, SOCK_STREAM, 0);

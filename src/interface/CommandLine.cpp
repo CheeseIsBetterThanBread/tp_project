@@ -1,6 +1,7 @@
-#include "CommandLine.h"
-
+#include <algorithm>
 #include <iostream>
+
+#include "CommandLine.h"
 
 std::string convert(int number) {
   std::string answer;

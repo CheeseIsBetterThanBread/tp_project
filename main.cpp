@@ -2,9 +2,7 @@
 #include "interface/Adapter.h"
 #include "connection/Interactor.h"
 #include "connection/RemoteServer.h"
-#include "connection/command/Command.h"
 
-#include <iostream>
 #include <memory>
 #include <string>
 
