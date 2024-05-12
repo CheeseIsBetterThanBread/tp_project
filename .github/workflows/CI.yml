@@ -48,6 +48,7 @@ jobs:
         with:
           name: executables
           path: bin
+          permissions: '0777'
 
       - name: download compiled libraries
         uses: actions/download-artifact@v2
