@@ -1,0 +1,65 @@
+name: CI for project
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+      - dev
+
+jobs:
+  build:
+    runs-on: ubuntu:latest
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v2
+
+      - name: install external libraries
+        run: ./install_requirements.sh
+
+      - name: build project and tests
+        run: ./build.sh && ./build.sh --test
+
+      - name: upload compiled executables
+        uses: actions/upload-artifact@v2
+        with:
+          name: executables
+          path: bin
+
+      - name: upload compiled libraries
+        uses: actions/upload-artifact@v2
+        with:
+          name: libraries
+          path: lib
+
+  test:
+    runs-on: ubuntu:latest
+    needs: build
+
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v2
+
+      - name: download compiled executables
+        uses: actions/download-artifact@v2
+        with:
+          name: executables
+          path: bin
+
+      - name: download compiled libraries
+        uses: actions/download-artifact@v2
+        with:
+          name: libraries
+          path: lib
+
+      - name: run tests
+        run: ./bin/tests.out --gtest_output=xml:test_output.xml
+
+      - name: upload test results
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-results
+          path: test_output.xml
