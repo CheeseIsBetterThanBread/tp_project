@@ -57,8 +57,9 @@ jobs:
 
       - name: run tests
         run: |
-          chmod +x /bin/tests.out
-          ./bin/tests.out --gtest_output=xml:test_output.xml
+          pwd
+          chmod +x bin/tests.out
+          .bin/tests.out --gtest_output=xml:test_output.xml
 
       - name: upload test results
         uses: actions/upload-artifact@v2
