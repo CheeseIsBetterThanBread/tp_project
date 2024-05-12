@@ -47,17 +47,17 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: executables
-          path: bin
+          path: /bin/
           permissions: '0777'
 
       - name: download compiled libraries
         uses: actions/download-artifact@v2
         with:
           name: libraries
-          path: lib
+          path: /lib/
 
       - name: run tests
-        run: ./bin/tests.out --gtest_output=xml:test_output.xml
+        run: sudo ./bin/tests.out --gtest_output=xml:test_output.xml
 
       - name: upload test results
         uses: actions/upload-artifact@v2
