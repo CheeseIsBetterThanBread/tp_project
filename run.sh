@@ -11,5 +11,5 @@ do
   shift
 done
 
-./bin/server.out
-./bin/exe.out "$interface_type"
+./bin/server.out &
+./bin/exe.out $interface_type
