@@ -23,7 +23,7 @@ int main() {
   server_addr.sin_addr.s_addr = INADDR_ANY;
 
   std::cerr << "Binding server socket" << std::endl;
-  if (bind(sockfd, (struct sockaddr*)&server_addr, sizeof(server_addr)) < 0) {
+  if (bind(sockfd, (struct sockaddr*) &server_addr, sizeof(server_addr)) < 0) {
     std::cerr << "Error binding server socket" << std::endl;
     return 1;
   }
@@ -40,12 +40,11 @@ int main() {
   while (true) {
     struct sockaddr_in client_addr;
     socklen_t client_len = sizeof(client_addr);
-    int client_sockfd = accept(sockfd, (struct sockaddr *)&client_addr, &client_len);
+    int client_sockfd = accept(sockfd, (struct sockaddr*) &client_addr, &client_len);
     if (client_sockfd < 0) {
       std::cerr << "Error accepting connection" << std::endl;
       continue;
     }
-    std::cerr << "Got a client: " << client_sockfd << std::endl;
     client_sockets.push_back(client_sockfd);
     if (client_sockets.size() == 2) {
       break;
@@ -63,31 +62,45 @@ int main() {
   auto victory = "v";
   auto loss = "l";
 
-  // exchange layouts
+  std::cerr << "Exchanging layouts" << std::endl;
   int active = 0;
-  {
-    char active_buffer[128]{};
-    char passive_buffer[128]{};
+  uint delay = 5;
+  char active_buffer[128]{};
+  active_buffer[0] = '\0';
+  char passive_buffer[128]{};
+  passive_buffer[0] = '\0';
+  do {
+    sleep(delay);
     recv(client_sockets[active], active_buffer, 128, 0);
+  } while (active_buffer[0] == '\0');
+  do {
+    sleep(delay);
     recv(client_sockets[active ^ 1], passive_buffer, 128, 0);
+  } while (passive_buffer[0] == '\0');
 
-    char active_response[256]{};
-    char passive_response[256]{};
-    strcat(active_response, go);
-    strcat(active_response, passive_buffer);
-    strcat(passive_response, wait);
-    strcat(passive_response, active_buffer);
+  char active_response[256]{};
+  char passive_response[256]{};
+  strcat(active_response, go);
+  strcat(active_response, passive_buffer);
+  strcat(passive_response, wait);
+  strcat(passive_response, active_buffer);
+  std::cerr << active_response << ' ' << passive_response << std::endl;
 
-    send(client_sockets[active], active_response, strlen(active_response), 0);
-    send(client_sockets[active ^ 1], passive_response, strlen(passive_response), 0);
-  }
+  send(client_sockets[active], active_response, strlen(active_response), 0);
+  send(client_sockets[active ^ 1], passive_response, strlen(passive_response), 0);
+  std::cerr << "Exchanging layouts -- Done" << std::endl;
 
   // communicate with clients
   char buffer[64]{};
   while (true) {
+    buffer[0] = '\0';
     int active_client = client_sockets[active];
     int passive_client = client_sockets[active ^ 1];
-    recv(active_client, buffer, 64, 0);
+    do {
+      sleep(delay);
+      recv(active_client, buffer, 64, 0);
+    } while (buffer[0] == '\0');
+    std::cerr << "Received shot: " << (buffer[0] == '\0') << std::endl;
 
     char response[256];
     if (buffer[0] == hit) {
@@ -95,6 +108,7 @@ int main() {
       strcat(response, buffer + 1);
       send(passive_client, response, strlen(response), 0);
       send(active_client, go, strlen(go), 0);
+      std::cerr << "Processed hit case" << std::endl;
       continue;
     }
     if (buffer[0] == miss) {
@@ -103,6 +117,7 @@ int main() {
       send(passive_client, response, strlen(response), 0);
       send(active_client, wait, strlen(wait), 0);
       active ^= 1;
+      std::cerr << "Processed miss case" << std::endl;
       continue;
     }
 
@@ -111,10 +126,12 @@ int main() {
     send(passive_client, loss, strlen(loss), 0);
     break;
   }
+  std::cerr << "Game ended" << std::endl;
 
-  // close all sockets
+  std::cerr << "Closing sockets" << std::endl;
   for (int client_sockfd : client_sockets) {
     close(client_sockfd);
   }
   close(sockfd);
+  std::cerr << "Closing sockets -- Done" << std::endl;
 }

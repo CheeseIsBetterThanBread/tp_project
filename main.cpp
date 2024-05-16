@@ -3,8 +3,10 @@
 #include "connection/Interactor.h"
 #include "connection/RemoteServer.h"
 
+#include <iostream>
 #include <memory>
 #include <string>
+#include <unistd.h>
 
 void set_up(const std::shared_ptr<Interactor>& interactor,
             std::shared_ptr<RemoteServer>& server,
@@ -32,11 +34,18 @@ int main(int, char** argv) {
   initiate_game(adapter);
   server->send_layout();
   server->receive_data();
+  std::cerr << "Fields are set up" << std::endl;
+  std::cerr << interactor->is_active() << std::endl;
 
   // gameplay
+  uint delay = 2;
   while (interactor->is_valid()) {
     while (interactor->is_active()) {
       adapter->fire_at();
+    }
+    while (!interactor->is_active()) {
+      sleep(delay);
+      server->receive_data();
     }
   }
 

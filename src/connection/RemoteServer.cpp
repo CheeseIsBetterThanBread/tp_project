@@ -35,14 +35,16 @@ RemoteServer::RemoteServer() {
 }
 
 RemoteServer::~RemoteServer() {
+  std::cerr << "Closing socket" << std::endl;
   close(sockfd_);
+  std::cerr << "Closing socket -- Done" << std::endl;
 }
 
 void RemoteServer::send_layout() {
   auto pointer = observer_.lock()->get_instance();
   using pair = std::pair<int, int>;
 
-  // get all ships
+  std::cerr << "Retrieving layout" << std::endl;
   std::vector<std::vector<pair>> ships(10);
   for (int row = 0; row < pointer->size_; ++row) {
     for (int column = 0; column < pointer->size_; ++column) {
@@ -52,15 +54,17 @@ void RemoteServer::send_layout() {
       }
     }
   }
+  std::cerr << "Retrieving layout -- Done" << std::endl;
 
-  // get borders of ships
+  std::cerr << "Picking borders" << std::endl;
   std::vector<std::pair<pair, pair>> borders(10);
   for (int i = 0; i < 10; ++i) {
     borders[i] = {*min_element(ships[i].begin(), ships[i].end()),
                   *max_element(ships[i].begin(), ships[i].end())};
   }
+  std::cerr << "Picking borders -- Done" << std::endl;
 
-  // send info to server
+  std::cerr << "Preparing to send" << std::endl;
   char buffer[256]{};
   for (int i = 0; i < 10; ++i) {
     buffer[4 * i] = '0' + borders[i].first.first;
@@ -68,7 +72,8 @@ void RemoteServer::send_layout() {
     buffer[4 * i + 2] = '0' + borders[i].second.first;
     buffer[4 * i + 3] = '0' + borders[i].second.second;
   }
-  send(sockfd_, buffer, strlen(buffer), 0);
+  std::cerr << "Preparing to send -- Done" << std::endl;
+  send_data(buffer);
 }
 
 void RemoteServer::send_data(const char* data) const {
@@ -77,7 +82,10 @@ void RemoteServer::send_data(const char* data) const {
 
 void RemoteServer::receive_data() {
   char buffer[256]{};
+  buffer[0] = '\0';
   recv(sockfd_, buffer, strlen(buffer), 0);
-  std::string response(buffer);
-  notify(response);
+  if (buffer[0] != '\0') {
+    std::string response(buffer);
+    notify(response);
+  }
 }
