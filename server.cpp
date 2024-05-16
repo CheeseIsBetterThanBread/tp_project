@@ -1,35 +1,34 @@
-#include <arpa/inet.h>
-#include <iostream>
 #include <cstring>
+#include <iostream>
+#include <netinet/in.h>
 #include <sys/socket.h>
 #include <unistd.h>
 #include <vector>
 
 int main() {
-  int PORT = 8080;
-  const char* IP = "0.0.0.0";
+  int PORT = 8818;
 
   // create a socket
   int sockfd = socket(AF_INET, SOCK_STREAM, 0);
   if (sockfd < 0) {
-    std::cerr << "Error creating socket" << std::endl;
+    std::cerr << "Error creating server socket" << std::endl;
     return 1;
   }
 
   // set address and port number for the server
-  struct sockaddr_in server_addr;
+  sockaddr_in server_addr;
   server_addr.sin_family = AF_INET;
   server_addr.sin_port = htons(PORT);
-  inet_pton(AF_INET, IP, &server_addr.sin_addr);
+  server_addr.sin_addr.s_addr = INADDR_ANY;
 
   // bind the socket to the address and port
-  if (bind(sockfd, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0) {
-    std::cerr << "Error binding socket" << std::endl;
+  if (bind(sockfd, (struct sockaddr*)&server_addr, sizeof(server_addr)) < 0) {
+    std::cerr << "Error binding server socket" << std::endl;
     return 1;
   }
 
   // listen for connections
-  if (listen(sockfd, 3) < 0) {
+  if (listen(sockfd, 2) < 0) {
     std::cerr << "Error listening on socket" << std::endl;
     return 1;
   }
@@ -62,13 +61,13 @@ int main() {
   // exchange layouts
   int active = 0;
   {
-    char active_buffer[128];
-    char passive_buffer[128];
+    char active_buffer[128]{};
+    char passive_buffer[128]{};
     recv(client_sockets[active], active_buffer, 128, 0);
     recv(client_sockets[active ^ 1], passive_buffer, 128, 0);
 
-    char active_response[256];
-    char passive_response[256];
+    char active_response[256]{};
+    char passive_response[256]{};
     strcat(active_response, go);
     strcat(active_response, passive_buffer);
     strcat(passive_response, wait);
@@ -79,7 +78,7 @@ int main() {
   }
 
   // communicate with clients
-  char buffer[64];
+  char buffer[64]{};
   while (true) {
     int active_client = client_sockets[active];
     int passive_client = client_sockets[active ^ 1];
