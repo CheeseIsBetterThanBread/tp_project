@@ -8,14 +8,16 @@
 #include "RemoteServer.h"
 
 RemoteServer::RemoteServer() {
-  int PORT = 8818;
+  int PORT = 8888;
 
+  std::cerr << "Creating a client socket" << std::endl;
   // create a socket
   sockfd_ = socket(AF_INET, SOCK_STREAM, 0);
   if (sockfd_ < 0) {
     std::cerr << "Error creating client socket" << std::endl;
     return;
   }
+  std::cerr << "Creating a client socket -- Done" << std::endl;
 
   // set address and port number for the server
   sockaddr_in server_addr;
@@ -23,11 +25,13 @@ RemoteServer::RemoteServer() {
   server_addr.sin_port = htons(PORT);
   server_addr.sin_addr.s_addr = INADDR_ANY;
 
+  std::cerr << "Connecting to the server" << std::endl;
   // connect to the server
   if (connect(sockfd_, (struct sockaddr*)&server_addr, sizeof(server_addr)) < 0) {
     std::cerr << "Error connecting to server" << std::endl;
     return;
   }
+  std::cerr << "Connecting to the server -- Done" << std::endl;
 }
 
 RemoteServer::~RemoteServer() {

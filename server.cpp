@@ -6,14 +6,15 @@
 #include <vector>
 
 int main() {
-  int PORT = 8818;
+  int PORT = 8888;
 
-  // create a socket
+  std::cerr << "Creating a server socket" << std::endl;
   int sockfd = socket(AF_INET, SOCK_STREAM, 0);
   if (sockfd < 0) {
     std::cerr << "Error creating server socket" << std::endl;
     return 1;
   }
+  std::cerr << "Creating a server socket -- Done" << std::endl;
 
   // set address and port number for the server
   sockaddr_in server_addr;
@@ -21,11 +22,12 @@ int main() {
   server_addr.sin_port = htons(PORT);
   server_addr.sin_addr.s_addr = INADDR_ANY;
 
-  // bind the socket to the address and port
+  std::cerr << "Binding server socket" << std::endl;
   if (bind(sockfd, (struct sockaddr*)&server_addr, sizeof(server_addr)) < 0) {
     std::cerr << "Error binding server socket" << std::endl;
     return 1;
   }
+  std::cerr << "Binding server socket -- Done" << std::endl;
 
   // listen for connections
   if (listen(sockfd, 2) < 0) {
@@ -33,7 +35,7 @@ int main() {
     return 1;
   }
 
-  // accept incoming connections
+  std::cerr << "Accepting client sockets" << std::endl;
   std::vector<int> client_sockets;
   while (true) {
     struct sockaddr_in client_addr;
@@ -43,12 +45,15 @@ int main() {
       std::cerr << "Error accepting connection" << std::endl;
       continue;
     }
-
+    std::cerr << "Got a client: " << client_sockfd << std::endl;
     client_sockets.push_back(client_sockfd);
-    if (client_sockets.size() == 2) {
+    if (client_sockets.size() == 1) {
       break;
     }
   }
+  std::cerr << "Accepting client sockets -- Done" << std::endl;
+
+  std::cerr << "Starting the game" << std::endl;
 
   // statuses after shots
   auto wait = "w";
