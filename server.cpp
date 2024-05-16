@@ -47,7 +47,7 @@ int main() {
     }
     std::cerr << "Got a client: " << client_sockfd << std::endl;
     client_sockets.push_back(client_sockfd);
-    if (client_sockets.size() == 1) {
+    if (client_sockets.size() == 2) {
       break;
     }
   }
