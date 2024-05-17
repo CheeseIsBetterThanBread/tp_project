@@ -21,4 +21,5 @@ class Interactor : public Observer {
  private:
   std::shared_ptr<Command> command_;
   bool active_;
+  bool valid_;
 };

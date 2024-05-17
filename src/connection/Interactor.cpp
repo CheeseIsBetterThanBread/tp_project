@@ -5,7 +5,7 @@
 #include <cstring>
 
 Interactor::Interactor(const std::shared_ptr<Battlefield>& local_copy)
-    : command_(std::make_shared<Command>(local_copy)), active_(false) {}
+    : command_(std::make_shared<Command>(local_copy)), active_(false), valid_(true) {}
 
 void Interactor::handle_event(std::string& response) {
   active_ = response[0] == 'g';
@@ -21,7 +21,7 @@ void Interactor::handle_event(std::string& response) {
     return;
   }
   if (response[0] == 'v' || response[0] == 'l') {
-    command_.reset();
+    valid_ = false;
     active_ = response[0] == 'v';
   }
 }
@@ -60,5 +60,5 @@ bool Interactor::is_active() const {
 }
 
 bool Interactor::is_valid() const {
-  return command_ != nullptr;
+  return valid_;
 }
