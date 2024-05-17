@@ -126,6 +126,7 @@ void CommandLine::fire_at() {
       continue;
     }
     correct = true;
+    update_enemy();
     std::cout << output;
   }
 }
@@ -164,10 +165,10 @@ void CommandLine::update_enemy() {
       int value = pointer->enemies_field_[row][column];
       if (value < 0) {
         display[row][column] = cross;
-      } else if (value == pointer->INF) {
-        display[row][column] = blank;
-      } else {
+      } else if (value == 0) {
         display[row][column] = dot;
+      } else {
+        display[row][column] = blank;
       }
     }
   }
