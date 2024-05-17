@@ -90,6 +90,7 @@ void CommandLine::add_ship() {
     try {
       interactor_->process_request({first, second, third, fourth});
     } catch (...) {
+      ++ships_left[size];
       std::cout << "Your ship intersects other ships\n";
       continue;
     }
