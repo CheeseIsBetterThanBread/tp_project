@@ -52,6 +52,7 @@ int main(int, char** argv) {
       sleep(delay);
       flag = server->receive_data();
       if (flag) {
+        std::cout << "There is your opponent's shot" << std::endl;
         adapter->update_field();
       }
     }
