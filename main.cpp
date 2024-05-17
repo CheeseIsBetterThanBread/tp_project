@@ -43,12 +43,12 @@ int main(int, char** argv) {
 
   // gameplay
   while (interactor->is_valid()) {
-    while (interactor->is_active()) {
+    if (interactor->is_active()) {
       adapter->fire_at();
-      sleep(delay);
-      server->receive_data();
-    }
-    while (!interactor->is_active()) {
+      do {
+        flag = server->receive_data();
+      } while (!flag);
+    } else {
       sleep(delay);
       server->receive_data();
     }

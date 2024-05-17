@@ -20,8 +20,10 @@ void Interactor::handle_event(std::string& response) {
     command_->process({row, column});
     return;
   }
-  command_.reset();
-  active_ = response[0] == 'v';
+  if (response[0] == 'v' || response[0] == 'l') {
+    command_.reset();
+    active_ = response[0] == 'v';
+  }
 }
 
 std::string Interactor::process_request(std::initializer_list<int> data) {

@@ -83,7 +83,6 @@ int main() {
   strcat(active_response, passive_buffer);
   strcat(passive_response, wait);
   strcat(passive_response, active_buffer);
-  std::cerr << active_response << ' ' << passive_response << std::endl;
 
   send(client_sockets[active], active_response, strlen(active_response), 0);
   send(client_sockets[active ^ 1], passive_response, strlen(passive_response), 0);
@@ -92,30 +91,27 @@ int main() {
   // communicate with clients
   char buffer[64]{};
   while (true) {
+    memset(buffer, 0, sizeof(buffer));
     int active_client = client_sockets[active];
     int passive_client = client_sockets[active ^ 1];
     do {
       sleep(delay);
       received = recv(active_client, buffer, 64, 0);
     } while (received == 0);
-    std::cerr << "Received shot" << std::endl;
 
-    char response[256];
+    char response[256]{};
     if (buffer[0] == hit) {
       strcat(response, wait);
       strcat(response, buffer + 1);
       send(passive_client, response, strlen(response), 0);
       send(active_client, go, strlen(go), 0);
-      std::cerr << "Processed hit case" << std::endl;
       continue;
-    }
-    if (buffer[0] == miss) {
+    } else if (buffer[0] == miss) {
       strcat(response, go);
       strcat(response, buffer + 1);
       send(passive_client, response, strlen(response), 0);
       send(active_client, wait, strlen(wait), 0);
       active ^= 1;
-      std::cerr << "Processed miss case" << std::endl;
       continue;
     }
 
