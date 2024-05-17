@@ -8,7 +8,7 @@ FireAtCommand::FireAtCommand(const std::shared_ptr<Battlefield>& local_copy)
 std::string FireAtCommand::execute(std::initializer_list<int> data) {
   Command::Query request(data);
   int& flag = local_copy_->enemies_field_[request.aim.first][request.aim.second];
-  if (flag == 0) {
+  if (flag <= 0) {
     // can't shoot same square twice
     throw std::invalid_argument("already shot there");
   }
