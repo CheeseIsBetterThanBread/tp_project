@@ -107,6 +107,7 @@ void CommandLine::fire_at() {
     int second;
     try {
       std::cin >> letter >> second;
+      letter = static_cast<char>(toupper(letter));
     } catch (...) {
       std::cout << "Incorrect input\n";
       continue;

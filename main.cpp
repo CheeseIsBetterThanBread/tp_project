@@ -38,7 +38,6 @@ int main(int, char** argv) {
   do {
     sleep(delay);
     flag = server->receive_data();
-    std::cerr << interactor->is_valid() << interactor->is_active() << std::endl;
   } while (!flag);
   std::cerr << "Fields are set up" << std::endl;
 
