@@ -40,7 +40,7 @@ void Interactor::update(std::initializer_list<int> data, const std::string& resp
     object_.lock()->send_data(message);
     return;
   }
-  bool missed = response == "Missed\n";
+  bool missed = response == "Missed!\n";
   char message[64];
   message[0] = missed ? 'm' : 'h';
   auto iterator = data.begin();
