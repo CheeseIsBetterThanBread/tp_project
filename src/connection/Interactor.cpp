@@ -21,7 +21,7 @@ void Interactor::handle_event(std::string& response) {
     return;
   }
   command_.reset();
-  active_ = response[0] == 'w';
+  active_ = response[0] == 'v';
 }
 
 std::string Interactor::process_request(std::initializer_list<int> data) {
