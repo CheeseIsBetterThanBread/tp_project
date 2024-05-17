@@ -17,7 +17,7 @@ void Interactor::handle_event(std::string& response) {
   if (response.size() > 1) {
     int row = response[1] - '0';
     int column = response[2] - '0';
-    command_->process({row, column});
+    command_->process({row, column}); // that's wrong, have to modify your own field
     return;
   }
   if (response[0] == 'v' || response[0] == 'l') {
@@ -37,13 +37,13 @@ void Interactor::update(std::initializer_list<int> data, const std::string& resp
     return;
   }
   if (get_instance()->alive_ == 0) {
-    char message[64];
+    char message[64]{};
     strcat(message, "done");
     object_.lock()->send_data(message);
     return;
   }
   bool missed = response == "Missed!\n";
-  char message[64];
+  char message[64]{};
   message[0] = missed ? 'm' : 'h';
   auto iterator = data.begin();
   message[1] = '0' + *iterator;
