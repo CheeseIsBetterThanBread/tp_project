@@ -1,4 +1,5 @@
 #include "Adapter.h"
+#include "Bot.h"
 #include "CommandLine.h"
 
 Adapter::Adapter() : interactor_() {
@@ -15,6 +16,8 @@ void Adapter::set_interactor(const std::shared_ptr<Interactor>& interactor) {
 std::shared_ptr<Adapter> Adapter::get_adapter(const std::string& type) {
   if (type == "terminal") {
     return std::make_shared<CommandLine>();
+  } else if (type == "bot") {
+    return std::make_shared<Bot>();
   }
   return nullptr;
 }
