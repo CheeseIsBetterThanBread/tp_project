@@ -45,6 +45,8 @@ int main(int, char** argv) {
   while (interactor->is_valid()) {
     while (interactor->is_active()) {
       adapter->fire_at();
+      sleep(delay);
+      server->receive_data();
     }
     while (!interactor->is_active()) {
       sleep(delay);
