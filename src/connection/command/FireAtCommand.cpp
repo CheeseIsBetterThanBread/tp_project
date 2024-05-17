@@ -28,3 +28,10 @@ std::string FireAtCommand::execute(std::initializer_list<int> data) {
   }
   return "One more down!\n";
 }
+
+std::string FireAtCommand::process_shot(std::initializer_list<int> data) {
+  Command::Query request(data);
+  int& flag = local_copy_->players_field_[request.aim.first][request.aim.second];
+  flag = (flag == 0) ? -local_copy_->INF : -flag;
+  return "Done\n";
+}

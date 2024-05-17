@@ -24,14 +24,23 @@ std::string Command::execute(std::initializer_list<int>) {
   return "something went wrong";
 }
 
-std::string Command::process(std::initializer_list<int> data) {
+std::string Command::process_shot(std::initializer_list<int>) {
+  return "Something went wrong";
+}
+
+std::string Command::process(std::initializer_list<int> data, bool self) {
   std::shared_ptr<Command> real_command;
   if (data.size() == 2) {
     real_command = std::make_shared<FireAtCommand>(local_copy_);
   } else {
     real_command = std::make_shared<AddShipCommand>(local_copy_);
   }
-  std::string answer = real_command->execute(data);
+  std::string answer;
+  if (self) {
+    answer = real_command->execute(data);
+  } else {
+    answer = real_command->process_shot(data);
+  }
   return answer;
 }
 

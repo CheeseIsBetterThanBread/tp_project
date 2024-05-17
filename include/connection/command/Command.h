@@ -20,7 +20,8 @@ class Command {
  public:
   explicit Command(const std::shared_ptr<Battlefield>& local_copy);
   virtual std::string execute(std::initializer_list<int> data);
-  std::string process(std::initializer_list<int> data);
+  virtual std::string process_shot(std::initializer_list<int> data);
+  std::string process(std::initializer_list<int> data, bool self = true);
 
   virtual ~Command() = default;
 

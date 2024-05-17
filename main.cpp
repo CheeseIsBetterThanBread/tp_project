@@ -50,7 +50,10 @@ int main(int, char** argv) {
       } while (!flag);
     } else {
       sleep(delay);
-      server->receive_data();
+      flag = server->receive_data();
+      if (flag) {
+        adapter->update_field();
+      }
     }
   }
 

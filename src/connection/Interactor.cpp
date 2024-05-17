@@ -17,7 +17,7 @@ void Interactor::handle_event(std::string& response) {
   if (response.size() > 1) {
     int row = response[1] - '0';
     int column = response[2] - '0';
-    command_->process({row, column}); // that's wrong, have to modify your own field
+    command_->process({row, column}, false);
     return;
   }
   if (response[0] == 'v' || response[0] == 'l') {
