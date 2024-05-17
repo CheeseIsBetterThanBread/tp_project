@@ -1,7 +1,7 @@
+#include "Adapter.h"
 #include "Battlefield.h"
-#include "interface/Adapter.h"
-#include "connection/Interactor.h"
-#include "connection/RemoteServer.h"
+#include "Interactor.h"
+#include "RemoteServer.h"
 
 #include <iostream>
 #include <memory>
