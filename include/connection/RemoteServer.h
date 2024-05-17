@@ -10,7 +10,7 @@ class RemoteServer : public Observable {
 
   void send_layout();
   void send_data(const char* data) const override;
-  void receive_data();
+  bool receive_data();
 
  private:
   int sockfd_;

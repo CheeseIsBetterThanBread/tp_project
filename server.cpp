@@ -65,18 +65,17 @@ int main() {
   std::cerr << "Exchanging layouts" << std::endl;
   int active = 0;
   uint delay = 5;
+  ssize_t received;
   char active_buffer[128]{};
-  active_buffer[0] = '\0';
   char passive_buffer[128]{};
-  passive_buffer[0] = '\0';
   do {
     sleep(delay);
-    recv(client_sockets[active], active_buffer, 128, 0);
-  } while (active_buffer[0] == '\0');
+    received = recv(client_sockets[active], active_buffer, 128, 0);
+  } while (received == 0);
   do {
     sleep(delay);
-    recv(client_sockets[active ^ 1], passive_buffer, 128, 0);
-  } while (passive_buffer[0] == '\0');
+    received = recv(client_sockets[active ^ 1], passive_buffer, 128, 0);
+  } while (received == 0);
 
   char active_response[256]{};
   char passive_response[256]{};
@@ -93,14 +92,13 @@ int main() {
   // communicate with clients
   char buffer[64]{};
   while (true) {
-    buffer[0] = '\0';
     int active_client = client_sockets[active];
     int passive_client = client_sockets[active ^ 1];
     do {
       sleep(delay);
-      recv(active_client, buffer, 64, 0);
-    } while (buffer[0] == '\0');
-    std::cerr << "Received shot: " << (buffer[0] == '\0') << std::endl;
+      received = recv(active_client, buffer, 64, 0);
+    } while (received == 0);
+    std::cerr << "Received shot" << std::endl;
 
     char response[256];
     if (buffer[0] == hit) {

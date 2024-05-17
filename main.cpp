@@ -31,14 +31,18 @@ int main(int, char** argv) {
   set_up(interactor, server, adapter);
 
   // set up playing fields
+  uint delay = 2;
   initiate_game(adapter);
   server->send_layout();
-  server->receive_data();
+  bool flag;
+  do {
+    sleep(delay);
+    flag = server->receive_data();
+    std::cerr << interactor->is_valid() << interactor->is_active() << std::endl;
+  } while (!flag);
   std::cerr << "Fields are set up" << std::endl;
-  std::cerr << interactor->is_active() << std::endl;
 
   // gameplay
-  uint delay = 2;
   while (interactor->is_valid()) {
     while (interactor->is_active()) {
       adapter->fire_at();

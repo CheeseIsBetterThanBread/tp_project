@@ -80,12 +80,13 @@ void RemoteServer::send_data(const char* data) const {
   send(sockfd_, data, strlen(data), 0);
 }
 
-void RemoteServer::receive_data() {
+bool RemoteServer::receive_data() {
+  ssize_t received;
   char buffer[256]{};
-  buffer[0] = '\0';
-  recv(sockfd_, buffer, strlen(buffer), 0);
-  if (buffer[0] != '\0') {
+  received = recv(sockfd_, buffer, 256, 0);
+  if (received != 0) {
     std::string response(buffer);
     notify(response);
   }
+  return received != 0;
 }
