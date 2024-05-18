@@ -8,8 +8,8 @@ on:
     paths-ignore:
       - README.md
       - .gitignore
-      - class_uml.jpg
-      - use_case_uml.jpg
+      - diagrams/
+
   pull_request:
     branches:
       - main
@@ -17,8 +17,7 @@ on:
     paths-ignore:
       - README.md
       - .gitignore
-      - class_uml.jpg
-      - use_case_uml.jpg
+      - diagrams/
 
 jobs:
   build:
