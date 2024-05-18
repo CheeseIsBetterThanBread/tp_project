@@ -1,5 +1,6 @@
 #!/bin/bash
 
+mkdir -p logging
 mkdir -p build
 cd build || exit
 

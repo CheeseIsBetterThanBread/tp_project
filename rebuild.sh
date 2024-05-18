@@ -3,6 +3,9 @@
 rm -r build
 rm -r bin
 rm -r lib
+rm -r logging
+
+mkdir -p logging
 mkdir -p build
 cd build || exit
 
