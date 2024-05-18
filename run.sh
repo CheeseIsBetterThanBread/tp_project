@@ -1,6 +1,7 @@
 #!/bin/bash
 
 interface_type="terminal"
+bot="bot"
 
 while [[ $# -ne 0 ]]
 do
@@ -12,4 +13,5 @@ do
 done
 
 ./bin/server.out &
-./bin/exe.out $interface_type
+./bin/exe.out "$bot" &
+./bin/exe.out "$interface_type"
