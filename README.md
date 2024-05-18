@@ -36,7 +36,7 @@ docker run -i <image>
 
 ## Диаграммы UML
 ### 1. UML class diagram
-[Class diagram](./class_uml.jpg?raw=true)
+[Class diagram](./diagrams/class_uml.jpg?raw=true)
 
 `Battlefield` хранит локальную копию полей игроков.
 Каждая ячейка поля игрока содержит одно из чисел:
@@ -70,7 +70,7 @@ docker run -i <image>
 
 ### 2. UML use case diagram
 
-[Use case diagram](./use_case_uml.jpg?raw=true)
+[Use case diagram](./diagrams/use_case_uml.jpg?raw=true)
 
 Игрок может пользоваться только двумя методами - `AddShip` и `FireAt`.
 Первый из них вызывается 10 раз в начале игры и больше вызываться не может.
