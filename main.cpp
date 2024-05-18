@@ -3,7 +3,6 @@
 #include "Interactor.h"
 #include "RemoteServer.h"
 
-#include <iostream>
 #include <memory>
 #include <string>
 #include <unistd.h>
@@ -39,7 +38,6 @@ int main(int, char** argv) {
     sleep(delay);
     flag = server->receive_data();
   } while (!flag);
-  std::cerr << "Fields are set up" << std::endl;
 
   // gameplay
   while (interactor->is_valid()) {
@@ -52,7 +50,6 @@ int main(int, char** argv) {
       sleep(delay);
       flag = server->receive_data();
       if (flag) {
-        std::cout << "There is your opponent's shot" << std::endl;
         adapter->update_field();
       }
     }

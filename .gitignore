@@ -9,3 +9,6 @@ lib/
 
 # runner
 actions-runner/
+
+# logging info
+logging/

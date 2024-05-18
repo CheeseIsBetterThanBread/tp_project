@@ -1,23 +1,24 @@
 #include <algorithm>
 #include <cstring>
-#include <iostream>
+#include <fstream>
 #include <netinet/in.h>
 #include <sys/socket.h>
 
 #include "Battlefield.h"
 #include "RemoteServer.h"
 
+std::ofstream out("../logging/log_players.txt");
+
 RemoteServer::RemoteServer() {
   int PORT = 8888;
 
-  std::cerr << "Creating a client socket" << std::endl;
-  // create a socket
+  out << "Creating a client socket" << std::endl;
   sockfd_ = socket(AF_INET, SOCK_STREAM, 0);
   if (sockfd_ < 0) {
-    std::cerr << "Error creating client socket" << std::endl;
+    out << "Error creating client socket" << std::endl;
     return;
   }
-  std::cerr << "Creating a client socket -- Done" << std::endl;
+  out << "Creating a client socket -- Done" << std::endl;
 
   // set address and port number for the server
   sockaddr_in server_addr;
@@ -25,26 +26,25 @@ RemoteServer::RemoteServer() {
   server_addr.sin_port = htons(PORT);
   server_addr.sin_addr.s_addr = INADDR_ANY;
 
-  std::cerr << "Connecting to the server" << std::endl;
-  // connect to the server
+  out << "Connecting to the server" << std::endl;
   if (connect(sockfd_, (struct sockaddr*)&server_addr, sizeof(server_addr)) < 0) {
-    std::cerr << "Error connecting to server" << std::endl;
+    out << "Error connecting to server" << std::endl;
     return;
   }
-  std::cerr << "Connecting to the server -- Done" << std::endl;
+  out << "Connecting to the server -- Done" << std::endl;
 }
 
 RemoteServer::~RemoteServer() {
-  std::cerr << "Closing socket" << std::endl;
+  out << "Closing socket" << std::endl;
   close(sockfd_);
-  std::cerr << "Closing socket -- Done" << std::endl;
+  out << "Closing socket -- Done" << std::endl;
 }
 
 void RemoteServer::send_layout() {
   auto pointer = observer_.lock()->get_instance();
   using pair = std::pair<int, int>;
 
-  std::cerr << "Retrieving layout" << std::endl;
+  out << "Retrieving layout" << std::endl;
   std::vector<std::vector<pair>> ships(10);
   for (int row = 0; row < pointer->size_; ++row) {
     for (int column = 0; column < pointer->size_; ++column) {
@@ -54,17 +54,17 @@ void RemoteServer::send_layout() {
       }
     }
   }
-  std::cerr << "Retrieving layout -- Done" << std::endl;
+  out << "Retrieving layout -- Done" << std::endl;
 
-  std::cerr << "Picking borders" << std::endl;
+  out << "Picking borders" << std::endl;
   std::vector<std::pair<pair, pair>> borders(10);
   for (int i = 0; i < 10; ++i) {
     borders[i] = {*min_element(ships[i].begin(), ships[i].end()),
                   *max_element(ships[i].begin(), ships[i].end())};
   }
-  std::cerr << "Picking borders -- Done" << std::endl;
+  out << "Picking borders -- Done" << std::endl;
 
-  std::cerr << "Preparing to send" << std::endl;
+  out << "Preparing to send" << std::endl;
   char buffer[256]{};
   for (int i = 0; i < 10; ++i) {
     buffer[4 * i] = '0' + borders[i].first.first;
@@ -72,7 +72,7 @@ void RemoteServer::send_layout() {
     buffer[4 * i + 2] = '0' + borders[i].second.first;
     buffer[4 * i + 3] = '0' + borders[i].second.second;
   }
-  std::cerr << "Preparing to send -- Done" << std::endl;
+  out << "Preparing to send -- Done" << std::endl;
   send_data(buffer);
 }
 
