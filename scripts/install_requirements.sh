@@ -7,5 +7,4 @@ sudo apt-get install -y git
 sudo apt-get install -y clang
 sudo apt-get install -y cmake
 
-sudo apt-get install -y libboost-all-dev
 sudo apt-get install -y libgtest-dev
