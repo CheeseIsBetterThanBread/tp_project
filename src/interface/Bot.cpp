@@ -39,7 +39,9 @@ std::vector<std::vector<std::string>> layouts = {
     isolate_diagonals
 };
 
-std::vector<std::vector<std::string>> strategies = {}; // todo
+std::vector<int> strategies = {
+    1, 3, 7, 11, 13, 17, 19, 21
+};
 
 Bot::Bot() : layout_index_(0), strategy_index_(0) {
   std::mt19937
@@ -73,7 +75,10 @@ void Bot::add_ship() {
   interactor_->process_request({first, second, third, fourth});
 }
 
-void Bot::fire_at() {} // todo
+void Bot::fire_at() {
+  int cell = strategies[strategy_] * (strategy_index_++) % 100;
+  interactor_->process_request({cell / 10, cell % 10});
+}
 
 void Bot::update_field() {}
 
