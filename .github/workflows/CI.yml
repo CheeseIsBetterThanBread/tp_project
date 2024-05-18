@@ -34,7 +34,7 @@ jobs:
         run: ./scripts/build.sh && ./scripts/build.sh --test
 
       - name: build docker image
-        run: docker build .
+        run: sudo docker build .
 
       - name: upload compiled executables
         uses: actions/upload-artifact@v2
