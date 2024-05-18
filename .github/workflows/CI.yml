@@ -28,10 +28,13 @@ jobs:
         uses: actions/checkout@v2
 
       - name: install external libraries
-        run: ./install_requirements.sh
+        run: ./scripts/install_requirements.sh
 
       - name: build project and tests
-        run: ./build.sh && ./build.sh --test
+        run: ./scripts/build.sh && ./scripts/build.sh --test
+
+      - name: build docker image
+        run: docker build .
 
       - name: upload compiled executables
         uses: actions/upload-artifact@v2
