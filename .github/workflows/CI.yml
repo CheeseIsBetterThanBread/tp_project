@@ -1,0 +1,79 @@
+name: CI for project
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+    paths-ignore:
+      - README.md
+      - .gitignore
+      - diagrams/
+
+  pull_request:
+    branches:
+      - main
+      - dev
+    paths-ignore:
+      - README.md
+      - .gitignore
+      - diagrams/
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v2
+
+      - name: install external libraries
+        run: ./scripts/install_requirements.sh
+
+      - name: build project and tests
+        run: ./scripts/build.sh && ./scripts/build.sh --test
+
+      - name: build docker image
+        run: sudo docker build .
+
+      - name: upload compiled executables
+        uses: actions/upload-artifact@v2
+        with:
+          name: executables
+          path: bin
+
+      - name: upload compiled libraries
+        uses: actions/upload-artifact@v2
+        with:
+          name: libraries
+          path: lib
+
+  test:
+    runs-on: self-hosted
+    needs: build
+
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v2
+
+      - name: download compiled executables
+        uses: actions/download-artifact@v2
+        with:
+          name: executables
+          path: bin
+
+      - name: download compiled libraries
+        uses: actions/download-artifact@v2
+        with:
+          name: libraries
+          path: lib
+
+      - name: run tests
+        run: |
+          chmod +x bin/tests.out
+          ./bin/tests.out --gtest_output=xml:test_output.xml
+
+      - name: upload test results
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-results
+          path: test_output.xml

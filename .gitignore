@@ -1,1 +1,14 @@
-*.out
+# build files
+.idea/
+build/
+cmake-build-debug
+
+# compiled executionables and libraries
+bin/
+lib/
+
+# runner
+actions-runner/
+
+# logging info
+logging/
